@@ -1,15 +1,28 @@
-const fetchApiCall = () => {
-  fetch(
-    "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/nn3%208ax?unitGroup=metric&include=days%2Chours%2Ccurrent&key=VPTUW45YW8CY9Q8TAEQ43BLNR&contentType=json",
-    {
-      method: "GET",
-      headers: {},
+import { useEffect, useState } from "react";
+
+export default () => {
+  const [data, setData] = useState([]);
+
+  const getCurrentWeather = async () => {
+    try {
+      const response = await fetch(
+        "https://api.open-meteo.com/v1/forecast?latitude=52.2688&longitude=-0.8373&current_weather=true&timezone=auto",
+        {
+          method: "GET",
+          headers: {},
+        }
+      );
+      const json = await response.json();
+      console.log(json);
+      setData(json.current_weather);
+    } catch (error) {
+      console.error(error);
     }
-  )
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  };
+
+  useEffect(() => {
+    getCurrentWeather();
+  }, []);
+
+  return [getCurrentWeather, data, error];
 };
