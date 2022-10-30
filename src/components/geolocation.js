@@ -18,7 +18,7 @@ export default () => {
       })();
     }, []);
   
-    let text = "Waiting..";
+    let text = "Waiting to get location...";
     if (errorMessage) {
       text = errorMessage;
     } else if (location) {
