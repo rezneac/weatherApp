@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { useState } from "react";
 import geolocation from "../components/geolocation";
 
 export default () => {
@@ -7,8 +6,7 @@ export default () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [text, location, err] = geolocation();
 
-  console.log(text);
-
+  // console.log(text);
 
   const getCurrentWeather = async () => {
     if (location != null) {
@@ -31,11 +29,6 @@ export default () => {
     }
   };
 
-  useEffect(() => {
-    getCurrentWeather();
-    }, []);
-
-  
 
   return [getCurrentWeather, data, errorMessage];
 };
