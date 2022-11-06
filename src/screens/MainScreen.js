@@ -6,14 +6,15 @@ import useWeatherApi from "../api/useWeatherApi";
 import WeatherStatus from "../components/WeatherStatus";
 
 const MainScreen = ({ navigation }) => {
-  const [getCurrentWeather, data, errorMessage] = useWeatherApi();
+  const [getCurrentWeather, currentWeather, data, humidity, errorMessage] =useWeatherApi();
   const [text, location, address, err] = geolocation();
+
+  // const [humidity, setHumidity] = useState();
 
   useEffect(() => {
     //Runs only if location variable is changed
     getCurrentWeather();
   }, [location]);
-  // console.log(address);
 
   return (
     <View>
@@ -25,24 +26,24 @@ const MainScreen = ({ navigation }) => {
       </View>
 
       <View style={{ alignItems: "center" }}>
-        <WeatherStatus id={data.weathercode} />
+        <WeatherStatus id={currentWeather.weathercode} />
         <View style={{ flexDirection: "row" }}>
           <Feather name="thermometer" style={styles.iconStyle} />
-          <Text style={styles.currentTempText}>{data.temperature} °C</Text>
+          <Text style={styles.currentTempText}>
+            {currentWeather.temperature} °C
+          </Text>
         </View>
 
         <View style={{ flexDirection: "row" }}>
           <Feather name="wind" style={styles.iconStyle} />
-          <Text>{data.windspeed} Km/h</Text>
+          <Text>{currentWeather.windspeed} Km/h</Text>
 
           <Feather name="droplet" style={styles.iconStyle} />
-          <Text>Precipitation {data.precipitation} mm</Text>
+          <Text>Humidity {humidity}%</Text>
         </View>
       </View>
 
-      
-
-      <Text>Last time updated {data.time}</Text>
+      <Text>Last time updated {currentWeather.time}</Text>
       {/* <Text style={styles.paragraph}>{text}</Text> */}
     </View>
   );
@@ -56,7 +57,6 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    // justifyContent: "space-between",
     paddingVertical: 20,
     paddingHorizontal: 10,
     borderTopWidth: 1,
