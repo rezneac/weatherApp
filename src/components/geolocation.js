@@ -34,6 +34,21 @@ export default () => {
   }, []);
 
   let text = "Waiting to get location...";
+  if (location == null) {
+    setLocation({
+      coords: {
+        accuracy: 20.899999618530273,
+        altitude: 126.30000305175781,
+        altitudeAccuracy: 1.9488483667373657,
+        heading: 0,
+        latitude: 52.2690939,
+        longitude: -0.8373514,
+        speed: 0,
+      },
+      mocked: false,
+      timestamp: 1667908360286,
+    });
+  }
   if (errorMessage) {
     text = errorMessage;
   } else if (location) {

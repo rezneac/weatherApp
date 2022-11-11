@@ -7,11 +7,18 @@ const navigator = createStackNavigator(
   {
     Main: MainScreen,
     Weather: WeatherStatus,
-  }, {
-  initialRouteName: "Main",
-  defaultNavigationOptions: {
-    title: "Weather App"
+  },
+  {
+    initialRouteName: "Main",
+    defaultNavigationOptions: {
+      title: "Weather App",
+      headerTintColor:"white",
+      headerStyle: { elevation: 0, backgroundColor: "#283655"},
+
+      cardStyle: { backgroundColor: "#1e1f26" },
+      backgroundColor: "black",
+    },
   }
-});
+);
 
 export default createAppContainer(navigator);

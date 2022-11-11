@@ -3,7 +3,7 @@ import geolocation from "../components/geolocation";
 
 export default () => {
   const [currentWeather, setCurrentWeather] = useState([]);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [text, location, err] = geolocation();
   const [humidity, setHumidity] = useState();

@@ -43,6 +43,7 @@ const style = StyleSheet.create({
   currentWeather: {
     fontSize: 14,
     fontWeight: "bold",
+    color:"white"
   },
 });
 
