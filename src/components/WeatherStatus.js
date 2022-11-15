@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const weatherStatus = (props) => {
+const WeatherStatus = (props) => {
   const weatherCode = require("../jsonFile/weatherAttributes.json");
 
   return (
@@ -21,4 +21,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default weatherStatus;
+export default WeatherStatus;

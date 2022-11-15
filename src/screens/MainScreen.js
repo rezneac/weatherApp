@@ -12,7 +12,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import geolocation from "../components/geolocation";
 import useWeatherApi from "../api/useWeatherApi";
 import WeatherStatus from "../components/WeatherStatus";
-import WeatherIcon from "../components/weatherIcon";
+import WeatherIcon from "../components/WeatherIcon";
 import moment from "moment";
 
 const MainScreen = ({ navigation }) => {
