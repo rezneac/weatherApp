@@ -15,6 +15,22 @@ import WeatherStatus from "../components/WeatherStatus";
 import WeatherIcon from "../components/WeatherIcon";
 import moment from "moment";
 
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
+import { watchChangeText } from "../redux-saga/sagas";
+import reducer from "../redux-saga/reducer";
+
+import { dispatchChangeText } from "../redux-saga/dispatcher";
+
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(watchChangeText);
+
+const calldispatch = store.dispatch({ type: "CHANGE_VALUE", payload: "new value" });
+
 const MainScreen = ({ navigation }) => {
   const [getCurrentWeather, currentWeather, data, humidity, errorMessage] =
     useWeatherApi();
@@ -34,7 +50,8 @@ const MainScreen = ({ navigation }) => {
     //Display when we have recived data
     <View>
       <View style={styles.mainCard}>
-        {/* <Button title="Refresh" onPress={getCurrentWeather} /> */}
+        <Button title="dispatch" onPress={store.dispatch({type:"CHANGE_TEXT",payload:"New Value"})} />
+        <Button title="Log value" onPress={console.log(store.getState().text)} />
 
         <View style={styles.row}>
           <Feather name="map-pin" style={styles.iconStyle} />
@@ -80,7 +97,7 @@ const MainScreen = ({ navigation }) => {
 
         <View>
           <FlatList
-            data={data.hourly.weathercode.slice(0,24)}
+            data={data.hourly.weathercode.slice(0, 24)}
             // keyExtractor={(item) => data.length}
             horizontal={true}
             renderItem={({ item, index }) => {
@@ -94,11 +111,11 @@ const MainScreen = ({ navigation }) => {
               }
               return (
                 <View style={styles.forecastCard}>
-                  <Text style={{ color: "white",size:32 }}>
+                  <Text style={{ color: "white", size: 32 }}>
                     {moment(data.hourly.time[index]).format("HH:mm")}
                   </Text>
                   <WeatherIcon id={item} />
-                  <Text style={{ color: "white",size:32 }}>
+                  <Text style={{ color: "white", size: 32 }}>
                     {data.hourly.temperature_2m[index]} °C
                   </Text>
                 </View>
@@ -137,10 +154,10 @@ const MainScreen = ({ navigation }) => {
                   }}
                 >
                   <Text style={{ color: "white", fontSize: 15 }}>
-                    {data.daily.temperature_2m_max[index]}°/
+                    {data.daily.temperature_2m_max[index]}°C/
                   </Text>
                   <Text style={{ color: "white", fontSize: 15 }}>
-                    {data.daily.temperature_2m_min[index]}°
+                    {data.daily.temperature_2m_min[index]}°C
                   </Text>
                 </View>
               </View>
@@ -153,11 +170,11 @@ const MainScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  forecastCard:{
-    marginLeft:3,
-    marginRight:3,
-    marginTop:3,
-    size:30,
+  forecastCard: {
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
+    size: 30,
   },
   mainCard: {
     backgroundColor: "#283655",

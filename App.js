@@ -2,14 +2,16 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import WeatherStatus from "./src/components/WeatherStatus";
 import MainScreen from "./src/screens/MainScreen";
+import TestSagas from "./src/screens/TestSaga";
 
 const navigator = createStackNavigator(
   {
     Main: MainScreen,
     Weather: WeatherStatus,
+    Test: TestSagas,
   },
   {
-    initialRouteName: "Main",
+    initialRouteName: "Test",
     defaultNavigationOptions: {
       title: "Weather App",
       headerTintColor:"white",
