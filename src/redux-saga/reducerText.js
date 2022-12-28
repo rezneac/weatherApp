@@ -2,7 +2,7 @@ const initialState = {
   text: "initial value",
 };
 
-function reducer(state = initialState, action) {
+function reducerText(state = initialState, action) {
   switch (action.type) {
     case "SET_TEXT":
       return {
@@ -14,4 +14,4 @@ function reducer(state = initialState, action) {
   }
 }
 
-export default reducer;
+export default reducerText;

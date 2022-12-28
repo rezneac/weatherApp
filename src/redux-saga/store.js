@@ -1,12 +1,17 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { watchChangeText } from "../redux-saga/sagas";
-import reducer from "../redux-saga/reducer";
-
+import reducerText from "./reducerText";
+import reducerNum from "./reducerNum";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+const combined = combineReducers({
+  updateText: reducerText,
+  updateNumber: reducerNum,
+});
+
+const store = createStore(combined, compose(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(watchChangeText);
 

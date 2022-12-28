@@ -15,22 +15,6 @@ import WeatherStatus from "../components/WeatherStatus";
 import WeatherIcon from "../components/WeatherIcon";
 import moment from "moment";
 
-import { createStore, applyMiddleware } from "redux";
-import createSagaMiddleware from "redux-saga";
-import { watchChangeText } from "../redux-saga/sagas";
-import reducer from "../redux-saga/reducer";
-
-import { dispatchChangeText } from "../redux-saga/dispatcher";
-
-
-const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(reducer, applyMiddleware(sagaMiddleware));
-
-sagaMiddleware.run(watchChangeText);
-
-const calldispatch = store.dispatch({ type: "CHANGE_VALUE", payload: "new value" });
-
 const MainScreen = ({ navigation }) => {
   const [getCurrentWeather, currentWeather, data, humidity, errorMessage] =
     useWeatherApi();
@@ -50,8 +34,6 @@ const MainScreen = ({ navigation }) => {
     //Display when we have recived data
     <View>
       <View style={styles.mainCard}>
-        <Button title="dispatch" onPress={store.dispatch({type:"CHANGE_TEXT",payload:"New Value"})} />
-        <Button title="Log value" onPress={console.log(store.getState().text)} />
 
         <View style={styles.row}>
           <Feather name="map-pin" style={styles.iconStyle} />
