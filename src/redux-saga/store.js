@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { watchChangeText } from "../redux-saga/sagas";
-import reducerText from "./reducerText";
-import reducerNum from "./reducerNum";
+import reducerText from "../reducers/reducerText";
+import reducerNum from "../reducers/reducerNum";
 
 const sagaMiddleware = createSagaMiddleware();
 
