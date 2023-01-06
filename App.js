@@ -13,7 +13,7 @@ const navigator = createStackNavigator(
     Test: TestSagas,
   },
   {
-    initialRouteName: "Test",
+    initialRouteName: "Main",
     defaultNavigationOptions: {
       title: "Weather App",
       headerTintColor: "white",

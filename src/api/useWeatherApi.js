@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import geolocation from "../components/geolocation";
+import store from "../redux-saga/store";
 
 export default () => {
   const [currentWeather, setCurrentWeather] = useState([]);
@@ -21,6 +22,7 @@ export default () => {
         const json = await response.json();
         setCurrentWeather(json.current_weather);
         setData(json);
+        store.dispatch({ type: "SET_TEXT", text: json });
 
         humidityData(json);
       } catch (error) {
@@ -44,5 +46,5 @@ export default () => {
     
   };
 
-  return [getCurrentWeather, currentWeather, data, humidity, errorMessage];
+  return [getCurrentWeather, humidity, errorMessage];
 };

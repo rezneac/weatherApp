@@ -14,11 +14,16 @@ import useWeatherApi from "../api/useWeatherApi";
 import WeatherStatus from "../components/WeatherStatus";
 import WeatherIcon from "../components/WeatherIcon";
 import moment from "moment";
+import store from "../redux-saga/store";
 
 const MainScreen = ({ navigation }) => {
-  const [getCurrentWeather, currentWeather, data, humidity, errorMessage] =
+  const [getCurrentWeather, humidity, errorMessage] =
     useWeatherApi();
   const [text, location, address, err] = geolocation();
+
+  //Getting weather data from store
+  var data = store.getState().updateData.text;
+  var currentWeather = store.getState().updateData.text.current_weather;
 
   useEffect(() => {
     //Runs again only if location variable is changed
@@ -34,7 +39,6 @@ const MainScreen = ({ navigation }) => {
     //Display when we have recived data
     <View>
       <View style={styles.mainCard}>
-
         <View style={styles.row}>
           <Feather name="map-pin" style={styles.iconStyle} />
           <Text style={styles.addressText}>{address}</Text>
@@ -80,7 +84,6 @@ const MainScreen = ({ navigation }) => {
         <View>
           <FlatList
             data={data.hourly.weathercode.slice(0, 24)}
-            // keyExtractor={(item) => data.length}
             horizontal={true}
             renderItem={({ item, index }) => {
               function getIndex(time) {
